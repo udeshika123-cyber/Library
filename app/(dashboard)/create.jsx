@@ -12,6 +12,8 @@ import Spacer from "../../components/Spacer";
 import { useBooks } from "../../hooks/useBooks";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { Image } from "react-native";
+import createimage from "../../assets/img/about.jpg";
 
 const Create = () => {
   const [title, setTitle] = useState("");
@@ -38,6 +40,10 @@ const Create = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ThemedView style={styles.container}>
+        <Image
+          source={createimage}
+          style={{ width: 100, height: 100, borderRadius: 75 }}
+        ></Image>
         <ThemedText title={true} style={styles.heading}>
           Add a New Book
         </ThemedText>

@@ -1,10 +1,11 @@
-import { StyleSheet, Text } from "react-native";
+import { Image, StyleSheet, Text } from "react-native";
 import { useUser } from "../../hooks/useUser";
 
 import Spacer from "../../components/Spacer";
 import ThemedText from "../../components/ThemedText";
 import ThemedView from "../../components/ThemedView";
 
+import profileimage from "../../assets/img/coverimage.webp";
 import ThemedButton from "../../components/ThemedButton";
 
 const Profile = () => {
@@ -12,14 +13,15 @@ const Profile = () => {
 
   return (
     <ThemedView style={styles.container}>
+      <Image source={profileimage} style={styles.coverImage} />
       <ThemedText title={true} style={styles.heading}>
         {user.email}
       </ThemedText>
       <Spacer />
-
-      <ThemedText>Time to start reading some books...</ThemedText>
+      <ThemedText style={{ fontSize: 30, fontWeight: "bold", color: "purple" }}>
+        "Time to start reading some books..."
+      </ThemedText>
       <Spacer />
-
       <ThemedButton onPress={logout} style={styles.button}>
         <Text style={{ color: "#f2f2f2" }}>Logout</Text>
       </ThemedButton>
