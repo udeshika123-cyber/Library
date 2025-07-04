@@ -10,10 +10,12 @@ export const BooksContext = createContext();
 
 export function BooksProvider({ children }) {
   const [books, setBooks] = useState([]);
+  const [likedBooks, setLikedBooks] = useState([]);
   const { user } = useUser();
 
   async function fetchBooks() {
     try {
+      if (!user) return; // early exit if no user
       const response = await databases.listDocuments(
         DATABASE_ID,
         COLLECTION_ID,
@@ -25,6 +27,15 @@ export function BooksProvider({ children }) {
       console.error("Fetch books error:", error.message);
     }
   }
+
+  useEffect(() => {
+    if (user) {
+      fetchBooks();
+    } else {
+      setBooks([]);
+      setLikedBooks([]);
+    }
+  }, [user]);
 
   async function fetchBookById(id) {
     try {
@@ -67,17 +78,23 @@ export function BooksProvider({ children }) {
     }
   }
 
-  useEffect(() => {
-    if (user) {
-      fetchBooks();
-    } else {
-      setBooks([]);
-    }
-  }, [user]);
+  function toggleLikeBook(id) {
+    setLikedBooks((prev) =>
+      prev.includes(id) ? prev.filter((bookId) => bookId !== id) : [...prev, id]
+    );
+  }
 
   return (
     <BooksContext.Provider
-      value={{ books, fetchBooks, fetchBookById, createBook, deleteBook }}
+      value={{
+        books,
+        fetchBooks,
+        fetchBookById,
+        createBook,
+        deleteBook,
+        likedBooks,
+        toggleLikeBook,
+      }}
     >
       {children}
     </BooksContext.Provider>
