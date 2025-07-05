@@ -3,7 +3,6 @@ import {
   Text,
   Keyboard,
   TouchableWithoutFeedback,
-  ActivityIndicator,
 } from "react-native";
 import { Link } from "expo-router";
 import { useState } from "react";
@@ -15,6 +14,7 @@ import Spacer from "../../components/Spacer";
 import ThemedButton from "../../components/ThemedButton";
 import ThemedTextInput from "../../components/ThemedTextInput";
 import { Colors } from "../../constants/Colors";
+import BackToHome from "../../components/BackToHome";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -36,12 +36,12 @@ const Login = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ThemedView style={styles.container}>
+        <BackToHome />
+
         <Spacer />
         <ThemedText title={true} style={styles.title}>
           Login to Your Account
         </ThemedText>
-
-        {/* <TextInput placeholder="Email" /> */}
 
         <Spacer />
         <ThemedTextInput
@@ -73,8 +73,6 @@ const Login = () => {
             Register instead
           </ThemedText>
         </Link>
-
-        {/* <ActivityIndicator size="large" color="white" /> */}
       </ThemedView>
     </TouchableWithoutFeedback>
   );

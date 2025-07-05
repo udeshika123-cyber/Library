@@ -6,6 +6,7 @@ import { Colors } from "../../constants/Colors";
 import { useBooks } from "../../hooks/useBooks";
 import ThemedCard from "../../components/ThemedCard";
 import { useRouter } from "expo-router";
+import BackToHome from "../../components/BackToHome";
 import { useState } from "react";
 
 const Books = () => {

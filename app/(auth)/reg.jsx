@@ -1,15 +1,19 @@
-import { Keyboard, StyleSheet, Text } from "react-native";
-import React from "react";
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+} from "react-native";
+import React, { useState } from "react";
 import { Link } from "expo-router";
-import { useState } from "react";
 import { Colors } from "../../constants/Colors";
 
+import BackToHome from "../../components/BackToHome";
 import ThemedView from "../../components/ThemedView";
 import ThemedTextInput from "../../components/ThemedTextInput";
 import ThemedText from "../../components/ThemedText";
 import ThemedButton from "../../components/ThemedButton";
 import Spacer from "../../components/Spacer";
-import { TouchableWithoutFeedback } from "react-native";
 import { useUser } from "../../hooks/useUser";
 
 const Reg = () => {
@@ -19,11 +23,6 @@ const Reg = () => {
 
   const { register } = useUser(null);
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     await register(email, password);
-  //   } catch (error) {}
-  // };
   const handleSubmit = async () => {
     setError(null);
     const trimmedEmail = email.trim();
@@ -34,7 +33,6 @@ const Reg = () => {
       !trimmedEmail.includes(".")
     ) {
       setError("Please enter a valid email address.");
-
       return;
     }
 
@@ -54,6 +52,8 @@ const Reg = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ThemedView style={styles.container}>
+        <BackToHome />
+
         <Spacer />
         <ThemedText title={true} style={styles.title}>
           Register for an account
@@ -81,9 +81,7 @@ const Reg = () => {
         <Spacer />
         {error && <Text style={styles.error}>{error}</Text>}
         <Spacer height={100} />
-        <ThemedText style={{ textAlign: "center" }}>
-          Already have an account
-        </ThemedText>
+
         <Link href={"/login"}>
           <ThemedText style={{ textAlign: "center" }}>Login Instead</ThemedText>
         </Link>
